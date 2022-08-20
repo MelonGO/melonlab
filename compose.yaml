@@ -12,16 +12,12 @@ services:
       - backend
 
   backend:
-    build:
-      context: flask
-      target: builder
+    image: melonlove/melonlab
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT
     environment:
       - FLASK_SERVER_PORT=9091
-    volumes:
-      - ./flask:/src
     depends_on:
       -  mongo  
 

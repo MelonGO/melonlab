@@ -15,7 +15,7 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-client = MongoClient("mongo:27017")
+client = MongoClient("mongo::27017")
 
 @app.route('/')
 def todo():
@@ -23,7 +23,7 @@ def todo():
         client.admin.command('ismaster')
     except:
         return "Server not available"
-    return "Hello from the MongoDB client!\n"
+    return "你好小王!\n"
 
 @app.route('/write')
 def write():
