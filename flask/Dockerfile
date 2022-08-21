@@ -6,7 +6,7 @@ COPY requirements.txt /src
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install -r requirements.txt
 
-COPY . .
+COPY . /src
 
 CMD ["python3", "server.py"]
 
