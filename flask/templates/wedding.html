@@ -49,11 +49,11 @@
                             {% for item in shops %}
                             <tr>
                                 <td>
-                                    <h4><a href="shops/{{ item.name }}">{{ item.name }}</a></h4>
+                                    <p><a href="shops/{{ item.name }}">{{ item.name }}</a></p>
                                 </td>
-                                <td><h3>{{ item.price }}</h3></td>
-                                <td><h3>{{ item.total }}</h3></td>
-                                <td><h3>{{ item.score }}</h3></td>
+                                <td><p>{{ item.price }}</p></td>
+                                <td><p>{{ item.total }}</p></td>
+                                <td><p>{{ item.score }}</p></td>
                             </tr>
                             {% endfor %}
                         </tbody>
