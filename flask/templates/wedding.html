@@ -39,10 +39,10 @@
                         <caption><h2>商店列表</h2></caption>
                         <thead>
                             <tr>
-                                <th><h3>名称</h3></th>
-                                <th><h3>平均价格</h3></th>
-                                <th><h3>评论数</h3></th>
-                                <th><h3>评分</h3></th>
+                                <th><h4>名称</h4></th>
+                                <th><h4>平均价格</h4></th>
+                                <th><h4>评论数</h4></th>
+                                <th><h4>评分</h4></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,9 +51,9 @@
                                 <td>
                                     <h4><a href="shops/{{ item.name }}">{{ item.name }}</a></h4>
                                 </td>
-                                <td><h4>{{ item.price }}</h4></td>
-                                <td><h4>{{ item.total }}</h4></td>
-                                <td><h4>{{ item.score }}</h4></td>
+                                <td><h3>{{ item.price }}</h3></td>
+                                <td><h3>{{ item.total }}</h3></td>
+                                <td><h3>{{ item.score }}</h3></td>
                             </tr>
                             {% endfor %}
                         </tbody>
