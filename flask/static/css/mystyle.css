@@ -1,0 +1,43 @@
+body.main {
+    background-color: #C0D9D9;
+    /*overflow-x: hidden;
+    background: url("/static/img/bg.jpg");
+    background-size:cover;*/
+}
+
+div.middle {
+    margin: 80px auto;
+    width: 1200px;
+    height: 800px;
+    background-image: url(/static/img/middle.jpg);
+    box-shadow: 10px 10px 20px #ffffff;
+    border-radius:25px;
+    -moz-border-radius:25px; /* 老的 Firefox */
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+div.index-panel {
+    text-align: center;
+    width: 90%;
+    border-radius: 0.5rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+    background-color: transparent;
+    padding: 20px;
+}
+
+h1.index-title {
+    color: #000000;
+    margin-top: 30px;
+    font-weight: normal;
+}
+
+div.shops-panel {
+    margin: 20px auto;
+    background-color: transparent;
+    padding: 20px;
+}

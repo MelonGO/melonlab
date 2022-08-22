@@ -2,51 +2,31 @@
 import os
 
 from flask import Flask
+from flask import render_template
 from pymongo import MongoClient
 
-# MONGO_CONNECTION_STRING = 'mongodb://localhost:27017'
-# MONGO_DB_NAME = 'flaskdb'
-# MONGO_COLLECTION_NAME = 'wedding'
-
-# client = pymongo.MongoClient(MONGO_CONNECTION_STRING)
-# db = client['flaskdb']
-# db.authenticate(name="melon", password="melon666")
-# collection = db['wedding']
 
 app = Flask(__name__)
 
 client = MongoClient("mongo:27017")
+db = client["wedding"]
+collection = db["shops"]
 
 @app.route('/')
-def todo():
-    try:
-        client.admin.command('ismaster')
-    except:
-        return "Server not available"
-    return "你好小王!\n"
+def index():
+    return render_template('index.html')
 
-@app.route('/write')
-def write():
-    db = client['school']
-    collection = db.students
-    student = {
-        "id": "1234",
-        "name": "sky",
-        "gender": "male",
-    }
-    result = collection.insert_one(student)
-    return 'Write : ' + str(result)
+@app.route('/wedding')
+def wedding():
+    shops = collection.find()
+    return render_template('wedding.html', shops=shops)
 
-@app.route('/read')
-def read():
-    db = client['wedding']
-    collection = db.wedding
-    
-    students = collection.find()
-    result = ''
-    for s in students:
-        result = s['name']
-    return result
+@app.route('/shops/<shopname>')
+def shop(shopname):
+    shop = collection.find_one({'name':shopname})
+    if shop:
+        reviews = shop['comments']
+    return render_template('shop.html', reviews=reviews)
 
 
 if __name__ == "__main__":
