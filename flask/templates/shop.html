@@ -26,8 +26,8 @@
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">目录</a></li>
-                <li><a href="">个人主页</a></li>
-                <li><a href="">商业合作</a></li>
+                <li><a href="">讨论区</a></li>
+                <li><a href="">联系方式</a></li>
             </ul>
         </div>
     </nav>
@@ -39,16 +39,16 @@
                         <caption><h2>评论列表</h2></caption>
                         <thead>
                             <tr>
-                                <th width="20%"><h4>页数</h3></th>
-                                <th width="80%"><h3>评论</h3></th>
+                                <th width="20%"><h4>页数</h4></th>
+                                <th width="80%"><h4>评论</h4></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for key,value in reviews.items() %}
+                            {%- for key,value in reviews.items() %}
                             <tr>
                                 <td><h4>{{ key }}</h4></td>
                                 <td>
-                                    {% for item in value %}
+                                    {%- for item in value %}
                                     <p>{{ item }}</p>
                                     {% endfor %}
                                 </td>

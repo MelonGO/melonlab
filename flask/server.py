@@ -21,7 +21,7 @@ def wedding():
     shops = collection.find()
     return render_template('wedding.html', shops=shops)
 
-@app.route('/shops/<shopname>')
+@app.route('/shop/<shopname>')
 def shop(shopname):
     shop = collection.find_one({'name':shopname})
     if shop:

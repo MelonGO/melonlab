@@ -1,5 +1,5 @@
 body.main {
-    background-color: #C0D9D9;
+    background-color: #E0E9EF;
     /*overflow-x: hidden;
     background: url("/static/img/bg.jpg");
     background-size:cover;*/
@@ -13,12 +13,12 @@ div.middle {
     box-shadow: 10px 10px 20px #ffffff;
     border-radius:25px;
     -moz-border-radius:25px; /* 老的 Firefox */
-    background-color: transparent;
-    opacity: 0.5;
+    /*background-color: transparent;
+    opacity: 0.5;*/
 }
 
 div.index-panel {
-    text-align: center;
+    /*text-align: center;*/
     width: 90%;
     border-radius: 0.5rem;
     top: 0;
@@ -33,11 +33,12 @@ div.index-panel {
 h1.index-title {
     color: #000000;
     margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-weight: normal;
 }
 
 div.shops-panel {
     margin: 20px auto;
-    background-color: transparent;
     padding: 20px;
 }

@@ -34,7 +34,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="shops-panel">
+                <div class="shops-panel table-responsive">
                     <table class="table">
                         <caption><h2>商店列表</h2></caption>
                         <thead>
@@ -46,10 +46,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for item in shops %}
+                            {%- for item in shops %}
                             <tr>
                                 <td>
-                                    <p><a href="shops/{{ item.name }}">{{ item.name }}</a></p>
+                                    <p><a href="shop/{{ item.name }}">{{ item.name }}</a></p>
                                 </td>
                                 <td><p>{{ item.price }}</p></td>
                                 <td><p>{{ item.total }}</p></td>
