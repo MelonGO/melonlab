@@ -46,7 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {%- for item in shops %}
+                            {%- for item in shops|sort(attribute=item.total) %}
                             <tr>
                                 <td>
                                     <p><a href="shop/{{ item.name }}">{{ item.name }}</a></p>
