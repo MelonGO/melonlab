@@ -21,6 +21,8 @@ def wedding():
     shops = collection.find()
     shops_list = []
     for item in shops:
+        tmp = int(item['total'])
+        item['total'] = tmp
         shops_list.append(item)
     shops_list.sort(key=lambda x: (x['total']))
     return render_template('wedding.html', shops=shops_list)
