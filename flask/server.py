@@ -19,7 +19,11 @@ def index():
 @app.route('/wedding')
 def wedding():
     shops = collection.find()
-    return render_template('wedding.html', shops=shops)
+    shops_list = []
+    for item in shops:
+        shops_list.append(item)
+    shops_list.sort(key=lambda x: (x['total']))
+    return render_template('wedding.html', shops=shops_list)
 
 @app.route('/shop/<shopname>')
 def shop(shopname):
