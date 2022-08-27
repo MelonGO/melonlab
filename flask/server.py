@@ -24,7 +24,7 @@ def wedding():
         tmp = int(item['total'])
         item['total'] = tmp
         shops_list.append(item)
-    shops_list.sort(key=lambda x: (x['total']))
+    shops_list.sort(key=lambda x: (x['total']), reverse=True)
     return render_template('wedding.html', shops=shops_list)
 
 @app.route('/shop/<shopname>')
