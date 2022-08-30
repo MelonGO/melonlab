@@ -34,6 +34,10 @@ def shop(shopname):
         reviews = shop['comments']
     return render_template('shop.html', reviews=reviews)
 
+@app.route('/vpn')
+def vpn():
+    return render_template('vpn.html')
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)

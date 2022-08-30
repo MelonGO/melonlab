@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>MelonLab</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <link href="/static/css/mystyle.css" rel="stylesheet">
+</head>
+
+<body class="main">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MelonLab</a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">目录</a></li>
+                <li><a href="">讨论区</a></li>
+                <li><a href="">联系方式</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="vpn-panel">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>使用Docker + IPsec + Centos搭建VPN服务器</h3>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">首先，需要选择一个服务器供应商，这里选择了Vultr，原因是操作简单，价格便宜，按时收费</p>
+                            <br/>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">新增服务器</p>
+                            <img src="static/img/project_vpn/p1.png" class="img-responsive img-rounded" style="width:300px;height: 300px;">
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">选择亚洲地区的服务器（延迟低），操作系统选择CentOS 7 x64</p>
+                            <img src="static/img/project_vpn/p2.png" class="img-responsive img-rounded">
+                            <br/>
+                            <img src="static/img/project_vpn/p3.png" class="img-responsive img-rounded">
+                            <br/>
+                            <p class="text">选择好服务器规格后，点击Deploy Now，然后等待系统安装和部署，大概5-10分钟</p>
+                            <br/>
+                            <p class="text">在Products可以看到新增的服务器，点进去是服务器的详细信息</p>
+                            <img src="static/img/project_vpn/p4.png" class="img-responsive img-rounded">
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <br/>
+                            <p class="text">Mac OS可直接在终端使用SSH登录服务器</p>
+                            <img src="static/img/project_vpn/p5.png" class="img-responsive img-rounded">
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <br/>
+                            <p class="text">成功登入服务器后，下一步是安装docker</p>
+                            <p class="text">删除旧版本docker</p>
+                            <p class="text">
+                                <pre>sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine</pre>
+                            </p>
+                            <br/>
+                            <p class="text">安装yum-utils，创建repository</p>
+                            <p class="text">
+                                <pre>sudo yum install -y yum-utils</pre>
+                            </p>
+                            <p class="text">
+                                <pre>sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo</pre>
+                            </p>
+                            <br/>
+                            <p class="text">安装最新版本的Docker Engine，containerd和Docker Compose</p>
+                            <p class="text">
+                                <pre>sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</pre>
+                            </p>
+                            <br/>
+                            <p class="text">启动docker</p>
+                            <p class="text">
+                                <pre>sudo systemctl start docker</pre>
+                            </p>
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <br/>
+                            <p class="text">使用以下命令快速搭建 IPsec VPN 服务器</p>
+                                <pre>docker run \
+    --name ipsec-vpn-server \
+    --restart=always \
+    -v ikev2-vpn-data:/etc/ipsec.d \
+    -v /lib/modules:/lib/modules:ro \
+    -p 500:500/udp \
+    -p 4500:4500/udp \
+    -d --privileged \
+    hwdsl2/ipsec-vpn-server</pre>
+                            <p class="text">配置使用 IKEv2 VPN</p>
+                            <br/>
+                            <p class="text">查看容器的日志以获取 IKEv2 配置信息</p>
+                            <p class="text">
+                                <pre>docker logs ipsec-vpn-server</pre>
+                            </p>
+                            <br/>
+                            <p class="text">将配置文件复制到Docker主机</p>
+                            <p class="text">
+                                <pre># 查看容器内的 /etc/ipsec.d 目录的文件
+docker exec -it ipsec-vpn-server ls -l /etc/ipsec.d
+# 示例：将一个客户端配置文件从容器复制到 Docker 主机当前目录
+docker cp ipsec-vpn-server:/etc/ipsec.d/vpnclient.p12 ./</pre>
+                            </p>
+                            <br/>
+
+                            <p class="text">不同设备下配置 IKEv2 VPN 客户端</p>
+                            <br/>
+                            <p class="text">Windows 7, 8, 10 和 11</p>
+                            <p class="text">1.将生成的 .p12 文件安全地传送到你的计算机</p>
+                            <p class="text">2.右键单击 ikev2_config_import.cmd 并保存这个辅助脚本到与 .p12 文件相同的文件夹</p>
+                            <p class="text">3.右键单击保存的脚本，选择“属性”。单击对话框下方的“解除锁定”，然后单击“确定”</p>
+                            <p class="text">4.右键单击保存的脚本，选择“以管理员身份运行”并按提示操作</p>
+                            <p class="text">要连接到VPN：单击系统托盘中的无线/网络图标，选择新的VPN连接，然后单击“连接”</p>
+                            <br/>
+
+                            <p class="text">OS X (macOS)</p>
+                            <p class="text">首先，将生成的 .mobileconfig 文件安全地传送到你的Mac，然后双击并按提示操作，以导入为macOS配置描述文件。如果你的Mac运行macOS Big Sur或更新版本，打开系统偏好设置并转到描述文件部分以完成导入。在完成之后，检查并确保 "IKEv2 VPN" 显示在系统偏好设置 -> 描述文件中</p>
+                            <p class="text">1.打开系统偏好设置并转到网络部分</p>
+                            <p class="text">2.选择与你的VPN服务器IP（或者域名）对应的VPN连接。</p>
+                            <p class="text">3.选中“在菜单栏中显示VPN状态”复选框</p>
+                            <p class="text">4.单击“连接”</p>
+                            <br/>
+
+                            <p class="text">IOS</p>
+                            <p class="text">首先，将生成的 .mobileconfig 文件安全地传送到你的iOS设备，并且导入为iOS配置描述文件，在完成之后，检查并确保"IKEv2 VPN"显示在设置 -> 通用 -> VPN与设备管理（或者描述文件）中</p>
+                            <p class="text">1.进入设置 -> VPN。选择与你的VPN服务器IP（或者域名）对应的VPN连接</p>
+                            <p class="text">2.启用VPN连接</p>
+                            <br/>
+
+                            <p class="text">Android</p>
+                            <p class="text">将生成的 .sswan 文件安全地传送到你的Android设备</p>
+                            <p class="text">1.进入设置 -> VPN。选择与你的VPN服务器IP（或者域名）对应的VPN连接</p>
+                            <p class="text">2.下载并安装strongSwan VPN客户端</p>
+                            <p class="text">3.启动strongSwan VPN客户端</p>
+                            <p class="text">4.单击右上角的“更多选项”菜单，然后单击“导入VPN配置”</p>
+                            <p class="text">5.选择你从服务器传送过来的 .sswan 文件</p>
+                            <p class="text">6.在“导入VPN配置”屏幕上，单击“从VPN配置导入证书”，并按提示操作</p>
+                            <p class="text">7.在"选择证书"屏幕上，选择新的客户端证书并单击“选择”</p>
+                            <p class="text">8.单击“导入”</p>
+                            <p class="text">9.单击新的VPN配置文件以开始连接</p>
+                            <br/>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
