@@ -129,8 +129,8 @@
     -p 4500:4500/udp \
     -d --privileged \
     hwdsl2/ipsec-vpn-server</pre>
-                            <p class="text">配置使用 IKEv2 VPN</p>
                             <br/>
+                            <p class="text">配置使用 IKEv2 VPN</p>
                             <p class="text">查看容器的日志以获取 IKEv2 配置信息</p>
                             <p class="text">
                                 <pre>docker logs ipsec-vpn-server</pre>
@@ -144,7 +144,7 @@ docker exec -it ipsec-vpn-server ls -l /etc/ipsec.d
 docker cp ipsec-vpn-server:/etc/ipsec.d/vpnclient.p12 ./</pre>
                             </p>
                             <br/>
-
+                            <br/>
                             <p class="text">不同设备下配置 IKEv2 VPN 客户端</p>
                             <br/>
                             <p class="text">Windows 7, 8, 10 和 11</p>
@@ -180,6 +180,19 @@ docker cp ipsec-vpn-server:/etc/ipsec.d/vpnclient.p12 ./</pre>
                             <p class="text">7.在"选择证书"屏幕上，选择新的客户端证书并单击“选择”</p>
                             <p class="text">8.单击“导入”</p>
                             <p class="text">9.单击新的VPN配置文件以开始连接</p>
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <br/>
+                            <h3>END</h3>
+                            <br/>
+                            <p class="text">参考资料：</p>
+                            <p class="text"><a href="https://zhuanlan.zhihu.com/p/144867146">https://zhuanlan.zhihu.com/p/144867146</a></p>
+                            <p class="text"><a href="https://docs.docker.com/engine/install/centos">https://docs.docker.com/engine/install/centos</a></p>
+                            <p class="text"><a href="https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/README-zh.md">https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/README-zh.md</a></p>
                             <br/>
                         </div>
                     </div>

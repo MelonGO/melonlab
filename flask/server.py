@@ -38,6 +38,10 @@ def shop(shopname):
 def vpn():
     return render_template('vpn.html')
 
+@app.route('/proxy')
+def proxy():
+    return render_template('proxy.html')
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)
