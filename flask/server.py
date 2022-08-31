@@ -42,6 +42,10 @@ def vpn():
 def proxy():
     return render_template('proxy.html')
 
+@app.route('/cicd')
+def cicd():
+    return render_template('cicd.html')
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)

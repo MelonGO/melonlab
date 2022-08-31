@@ -4,6 +4,10 @@ p.text {
     font-size:20px;
 }
 
+p.reference {
+    word-break:break-all;
+}
+
 body.main {
     background-color: #E0E9EF;
     /*overflow-x: hidden;
@@ -49,7 +53,7 @@ div.shops-panel {
     padding: 20px;
 }
 
-div.vpn-panel {
+div.content-panel {
     margin-top: 50px;
     margin-left: 20px;
     margin-right: 20px;
