@@ -18,6 +18,14 @@ def index():
 
 @app.route('/wedding')
 def wedding():
+    return render_template('wedding.html')
+
+@app.route('/wedding/analysis')
+def weddingAnalysis():
+    return render_template('weddingAnalysis.html')
+
+@app.route('/wedding/data')
+def weddingData():
     shops = collection.find()
     shops_list = []
     for item in shops:
@@ -25,9 +33,9 @@ def wedding():
         item['total'] = tmp
         shops_list.append(item)
     shops_list.sort(key=lambda x: (x['total']), reverse=True)
-    return render_template('wedding.html', shops=shops_list)
+    return render_template('weddingData.html', shops=shops_list)
 
-@app.route('/shop/<shopname>')
+@app.route('/wedding/shop/<shopname>')
 def shop(shopname):
     shop = collection.find_one({'name':shopname})
     if shop:

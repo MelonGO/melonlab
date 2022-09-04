@@ -34,31 +34,116 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="shops-panel table-responsive">
-                    <table class="table">
-                        <caption><h2>商店列表</h2></caption>
-                        <thead>
-                            <tr>
-                                <th><h4>名称</h4></th>
-                                <th><h4>平均价格</h4></th>
-                                <th><h4>评论数</h4></th>
-                                <th><h4>评分</h4></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {%- for item in shops %}
-                            <tr>
-                                <td>
-                                    <p><a href="shop/{{ item.name }}">{{ item.name }}</a></p>
-                                </td>
-                                <td><p>{{ item.price }}</p></td>
-                                <td><p>{{ item.total }}</p></td>
-                                <td><p>{{ item.score }}</p></td>
-                                
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <div class="content-panel">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>爬取大众点评广州所有婚纱摄影店铺信息&数据分析</h3>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="btn-group btn-group-justified">
+                            <a class="btn btn-default btn-lg" href="/wedding/analysis" role="button">数据分析</a>
+                            <a class="btn btn-default btn-lg" href="/wedding/data" role="button">数据内容</a>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">爬取大众点评的过程，主要遇到以下几个问题：</p>
+                            <p class="text">1.大众点评对评论内容进行了加密，且有两种不同的加密方法，每过一段时间就更换</p>
+                            <p class="text">2.当浏览页面的过程中，有一定几率跳转到验证中心，需要拖动验证条进行验证</p>
+                            <p class="text">3.大众点评有很强的反爬机制，当访问频率超过某个值时，会使cookie无效导致403Error，或直接禁IP</p>
+                            <p class="text">下面主要对上述遇到的问题进行分析</p>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">首先是加密，用以下评论为例</p>
+                            <img src="static/img/project_wedding/p1.png" class="img-responsive img-rounded">
+                            <br/>
+                            <p class="text">html源码长酱紫</p>
+                            <img src="static/img/project_wedding/p7.png" class="img-responsive img-rounded">
+                            <br/>
+
+                            <p class="text">可以看到，很多文字都被带有不同的<code>class</code>值的<code>svgmtsi</code>标签进行了替代</p>
+                            <br/>
+
+                            <p class="text">在顶部找到了这个css</p>
+                            <img src="static/img/project_wedding/p2.png" class="img-responsive img-rounded">
+                            <p class="text">打开就是所有这些<code>class</code>，且每个<code>background</code>带有两个px参数</p>
+                            <img src="static/img/project_wedding/p3.png" class="img-responsive img-rounded">
+                            <br/>
+
+                            <p class="text">在此css文件中找到该处</p>
+                            <img src="static/img/project_wedding/p4.png" class="img-responsive img-rounded">
+                            <br/>
+                            <p class="text">打开这个svg，里面是多行文字</p>
+                            <img src="static/img/project_wedding/p5.png" class="img-responsive img-rounded">
+                            <br/>
+                            <p class="text">查看这个svg的html源码，主要由<code>path</code>和<code>textPath</code>两种结构组成</p>
+                            <img src="static/img/project_wedding/p6.png" class="img-responsive img-rounded">
+                            <br/>
+                            <br/>
+                            <p class="text">下面试图用最开始的评论例子来解析整个过程</p>
+                            <img src="static/img/project_wedding/p7.png" class="img-responsive img-rounded">
+                            <br/>
+                            <p class="text">第一个“理”字对应<code>&lt;svgmtsi class=&quot;ldutj&quot;&gt;&lt;/svgmtsi&gt;</code></p>
+                            <p class="text"><code>class</code>的值为<code>ldutj</code></p>
+                            <p class="text">在css文件里面找到<code>.ldutj{background:-28.0px -1647.0px;}</code></p>
+                            <p class="text">用1647 + 23 = 1670</p>
+                            <p class="text">在svg文件里面找到<code>&lt;path id=&quot;41&quot; d=&quot;M0 1670 H600&quot;/&gt;</code>，1670所对应的id为41</p>
+                            <p class="text">在svg文件里面找到<code>&lt;textPath xlink:href=&quot;#41&quot; textLength=&quot;504&quot;&gt;赏塔理袭响脂植欧争私冤竖指锹疼翠彻应惭卸缘回属康肚臂输烂逆最扬休倡漫示冲&lt;/textPath&gt;</code></p>
+                            <p class="text">再回到css文件的<code>.ldutj{background:-28.0px -1647.0px;}</code>，用28 / 14 = 2</p>
+                            <p class="text">在<code>赏塔理袭响脂植欧争私冤竖指锹疼翠彻应惭卸缘回属康肚臂输烂逆最扬休倡漫示冲</code>中，从左到右索引为2（从0开始）的字，即为“理”字</p>
+                            <br/>
+
+                            <p class="text">上述解析过程关键代码实现：</p>
+                            <pre>path = {}
+for item in svg_path:
+    path[int(item[1])] = int(item[0])
+
+lines = {}
+for item in svg_textPath:
+    lines[int(item[0])] = item[1]
+
+css_class = [(key_letter + cls_name, int(x), int(y)) for cls_name,x,y in css_class]
+resDic = {}
+for item in css_class:
+    tmp = item[2] + 23
+    index = item[1] / 14
+    word = lines[path[tmp]][int(index): int(index)+1]
+    resDic[item[0]] = word</pre>
+                            <p class="text">这样就将svg的每一行的每一个字和评论的<code>svgmtsi</code>标签形成了映射，在读取评论页面内容时直接转换即可</p>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text"></p>
+                            
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <br/>
+                            <h3>Continue...</h3>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

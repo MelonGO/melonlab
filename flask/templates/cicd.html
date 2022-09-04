@@ -101,7 +101,7 @@
                             <br/>
 
                             <br/>
-                            <p class="text">backend容器的<code>Dockerfile</code></p>
+                            <p class="text">backend镜像的<code>Dockerfile</code></p>
                             <pre># syntax=docker/dockerfile:1.4
 FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
 
@@ -205,7 +205,7 @@ if __name__ == "__main__":
                             <p class="text">使用<code>docker ps</code>查看容器运行状态</p>
                             <img src="static/img/project_cicd/p2.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">使用<code>docker compose down</code>移除所有容器和Network（注意：需要手动删除backend容器的Image，以便在下次重构时令flask下更改过的内容复制到backend容器中）</p>
+                            <p class="text">使用<code>docker compose down</code>移除所有容器和Network（注意：需要手动删除backend容器的Image，以便在下次重构时令flask目录下更改过的内容复制到backend镜像中）</p>
                             <img src="static/img/project_cicd/p3.png" class="img-responsive img-rounded">
                             <br/>
                         </div>
@@ -234,7 +234,7 @@ if __name__ == "__main__":
                             <p class="text">新建main.yml</p>
                             <img src="static/img/project_cicd/p8.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">它的作用，是在git push的时候，使用flask目录下的Dockerfile构建backend容器，并上传到Docker Hub的Repository</p>
+                            <p class="text">它的作用，是在git push的时候，使用flask目录下的Dockerfile构建backend镜像，并上传到Docker Hub的Repository</p>
                         </div>
                     </div>
                     <br/>
@@ -261,6 +261,18 @@ if __name__ == "__main__":
                             <img src="static/img/project_cicd/p7.png" class="img-responsive img-rounded">
                             <br/>
                             <p class="text">打开浏览器，输入服务器IP，查看网站是否能够正常访问</p>
+                            <br/>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <br/>
+                            <p class="text">最后总结一下整个CI/CD的流程：</p>
+                            <p class="text">1.项目发生修改，使用<code>git push</code>上传到github</p>
+                            <p class="text">2.Github Actions自动构建backend镜像，上传到Docker Hub</p>
+                            <p class="text">3.登录服务器，使用docker compose相关命令重新构建和启动项目</p>
                             <br/>
                         </div>
                     </div>
