@@ -11,6 +11,8 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     <link href="/static/css/mystyle.css" rel="stylesheet">
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts-wordcloud.min.js"></script>
 </head>
 
 <body class="main">
@@ -35,10 +37,54 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="content-panel">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <h2>数据分析</h2>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h2>数据分析</h2>
+                        </div>
                     </div>
 
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>总共 <strong>367</strong> 间店铺</h3>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>合计 <strong>23232</strong> 条评论</h3>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>评论数分布：</h3>
+                            {% include 'weddingChart/pie_base.html' %}
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>评论数前十：</h3>
+                            {% include 'weddingChart/rankBar.html' %}
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>评论词云：</h3>
+                            {% include 'weddingChart/wordcloud.html' %}
+                        </div>
+                        <br/>
+                    </div>
 
                 </div>
             </div>
