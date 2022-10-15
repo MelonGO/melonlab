@@ -17,7 +17,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-                <span class="sr-only">切换导航</span>
+                <span class="sr-only">切换導航</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
@@ -25,9 +25,8 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">目录</a></li>
-                <li><a href="">讨论区</a></li>
-                <li><a href="">联系方式</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -37,15 +36,15 @@
                 <div class="content-panel">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>爬取大众点评广州所有婚纱摄影店铺信息&数据分析</h3>
+                            <h3>爬取大眾點評廣州所有婚紗攝影店鋪信息&數據分析</h3>
                         </div>
                     </div>
                     <br/>
 
                     <div class="row">
                         <div class="btn-group btn-group-justified">
-                            <a class="btn btn-default btn-lg" href="/wedding/analysis" role="button">数据分析</a>
-                            <a class="btn btn-default btn-lg" href="/wedding/data" role="button">数据内容</a>
+                            <a class="btn btn-default btn-lg" href="/wedding/analysis" role="button">數據分析</a>
+                            <a class="btn btn-default btn-lg" href="/wedding/data" role="button">數據內容</a>
                         </div>
                     </div>
                     <br/>
@@ -53,11 +52,11 @@
                     <div class="row">
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <p class="text">爬取大众点评的过程，主要遇到以下几个问题：</p>
-                            <p class="text">1.大众点评对评论内容进行了加密，且有两种不同的加密方法，每过一段时间就更换</p>
-                            <p class="text">2.当浏览页面的过程中，有一定几率跳转到验证中心，需要拖动验证条进行验证</p>
-                            <p class="text">3.大众点评有很强的反爬机制，当访问频率超过某个值时，会使cookie无效导致403Error，或直接禁IP</p>
-                            <p class="text">下面主要对上述遇到的问题进行分析</p>
+                            <p class="text">爬取大眾點評的過程，主要遇到以下幾個問題：</p>
+                            <p class="text">1.大眾點評對評論內容進行了加密，且有兩種不同的加密方法，每過一段時間就更換</p>
+                            <p class="text">2.當瀏覽頁面的過程中，有一定幾率跳轉到驗證中心，需要拖動驗證條進行驗證</p>
+                            <p class="text">3.大眾點評有很強的反爬機製，當訪問頻率超過某個值時，會使cookie無效導致403，或直接禁IP</p>
+                            <p class="text">下面主要對上述遇到的問題進行分析</p>
                         </div>
                         <br/>
                     </div>
@@ -65,46 +64,46 @@
                     <div class="row">
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <p class="text">首先是加密，用以下评论为例</p>
+                            <p class="text">首先是加密，用以下評論為例</p>
                             <img src="static/img/project_wedding/p1.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">html源码长酱紫</p>
+                            <p class="text">html源碼</p>
                             <img src="static/img/project_wedding/p7.png" class="img-responsive img-rounded">
                             <br/>
 
-                            <p class="text">可以看到，很多文字都被带有不同的<code>class</code>值的<code>svgmtsi</code>标签进行了替代</p>
+                            <p class="text">可以看到，很多文字都被帶有不同的<code>class</code>值的<code>svgmtsi</code>標簽進行了替代</p>
                             <br/>
 
-                            <p class="text">在顶部找到了这个css</p>
+                            <p class="text">在頂部找到了這個css</p>
                             <img src="static/img/project_wedding/p2.png" class="img-responsive img-rounded">
-                            <p class="text">打开就是所有这些<code>class</code>，且每个<code>background</code>带有两个px参数</p>
+                            <p class="text">打開就是所有這些<code>class</code>，且每個<code>background</code>帶有兩個px參數</p>
                             <img src="static/img/project_wedding/p3.png" class="img-responsive img-rounded">
                             <br/>
 
-                            <p class="text">在此css文件中找到该处</p>
+                            <p class="text">在此css文件中找到該處</p>
                             <img src="static/img/project_wedding/p4.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">打开这个svg，里面是多行文字</p>
+                            <p class="text">打開這個svg，裡面是多行文字</p>
                             <img src="static/img/project_wedding/p5.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">查看这个svg的html源码，主要由<code>path</code>和<code>textPath</code>两种结构组成</p>
+                            <p class="text">查看這個svg的html源碼，主要由<code>path</code>和<code>textPath</code>兩種結構組成</p>
                             <img src="static/img/project_wedding/p6.png" class="img-responsive img-rounded">
                             <br/>
                             <br/>
-                            <p class="text">下面试图用最开始的评论例子来解析整个过程</p>
+                            <p class="text">下面試圖用最開始的評論例子來解析整個過程</p>
                             <img src="static/img/project_wedding/p7.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">第一个“理”字对应<code>&lt;svgmtsi class=&quot;ldutj&quot;&gt;&lt;/svgmtsi&gt;</code></p>
-                            <p class="text"><code>class</code>的值为<code>ldutj</code></p>
-                            <p class="text">在css文件里面找到<code>.ldutj{background:-28.0px -1647.0px;}</code></p>
+                            <p class="text">第一個「理」字對應<code>&lt;svgmtsi class=&quot;ldutj&quot;&gt;&lt;/svgmtsi&gt;</code></p>
+                            <p class="text"><code>class</code>的值為<code>ldutj</code></p>
+                            <p class="text">在css文件裡面找到<code>.ldutj{background:-28.0px -1647.0px;}</code></p>
                             <p class="text">用1647 + 23 = 1670</p>
-                            <p class="text">在svg文件里面找到<code>&lt;path id=&quot;41&quot; d=&quot;M0 1670 H600&quot;/&gt;</code>，1670所对应的id为41</p>
-                            <p class="text">在svg文件里面找到<code>&lt;textPath xlink:href=&quot;#41&quot; textLength=&quot;504&quot;&gt;赏塔理袭响脂植欧争私冤竖指锹疼翠彻应惭卸缘回属康肚臂输烂逆最扬休倡漫示冲&lt;/textPath&gt;</code></p>
+                            <p class="text">在svg文件裡面找到<code>&lt;path id=&quot;41&quot; d=&quot;M0 1670 H600&quot;/&gt;</code>，1670所對應的id為41</p>
+                            <p class="text">在svg文件裡面找到<code>&lt;textPath xlink:href=&quot;#41&quot; textLength=&quot;504&quot;&gt;赏塔理袭响脂植欧争私冤竖指锹疼翠彻应惭卸缘回属康肚臂输烂逆最扬休倡漫示冲&lt;/textPath&gt;</code></p>
                             <p class="text">再回到css文件的<code>.ldutj{background:-28.0px -1647.0px;}</code>，用28 / 14 = 2</p>
-                            <p class="text">在<code>赏塔理袭响脂植欧争私冤竖指锹疼翠彻应惭卸缘回属康肚臂输烂逆最扬休倡漫示冲</code>中，从左到右索引为2（从0开始）的字，即为“理”字</p>
+                            <p class="text">在<code>赏塔理袭响脂植欧争私冤竖指锹疼翠彻应惭卸缘回属康肚臂输烂逆最扬休倡漫示冲</code>中，從左到右索引為2（從0開始）的字，即為「理」字</p>
                             <br/>
 
-                            <p class="text">上述解析过程关键代码实现：</p>
+                            <p class="text">上述解析過程關鍵Code實現：</p>
                             <pre>path = {}
 for item in svg_path:
     path[int(item[1])] = int(item[0])
@@ -120,7 +119,7 @@ for item in css_class:
     index = item[1] / 14
     word = lines[path[tmp]][int(index): int(index)+1]
     resDic[item[0]] = word</pre>
-                            <p class="text">这样就将svg的每一行的每一个字和评论的<code>svgmtsi</code>标签形成了映射，在读取评论页面内容时直接转换即可</p>
+                            <p class="text">這樣就將svg的每一行的每一個字和評論的<code>svgmtsi</code>標簽形成了映射，在讀取評論頁面內容時直接轉換即可</p>
 
                         </div>
                     </div>
@@ -137,7 +136,7 @@ for item in css_class:
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <br/>
-                            <h3>Continue...</h3>
+                            <h3>To be continue...</h3>
                             <br/>
                             <br/>
                         </div>

@@ -17,7 +17,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-                <span class="sr-only">切换导航</span>
+                <span class="sr-only">切换導航</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
@@ -25,9 +25,8 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">目录</a></li>
-                <li><a href="">讨论区</a></li>
-                <li><a href="">联系方式</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -37,67 +36,67 @@
                 <div class="content-panel">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>使用Squid + Centos搭建proxy服务器</h3>
+                            <h3>使用Squid + Centos搭建proxy服務器</h3>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <p class="text">首先，在Vultr上新建一个CentOS 7服务器（请参考<a href="/vpn">这里</a>）</p>
+                            <p class="text">首先，在Vultr上新建一個CentOS 7服務器（請參考<a href="/vpn">這裡</a>）</p>
                             <br/>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <p class="text">登录服务器，使用以下命令安装Squid</p>
+                            <p class="text">登入服務器，使用以下命令安裝Squid</p>
                             <pre>yum -y install squid</pre>
                             <img src="static/img/project_proxy/p1.png" class="img-responsive img-rounded">
                             <br/>
 
                             <br/>
-                            <p class="text">安装完成后，启动Squid服务</p>
+                            <p class="text">安裝完成後，啟動Squid服務</p>
                             <pre>systemctl start squid</pre>
                             <pre>systemctl enable squid</pre>
                             <br/>
 
                             <br/>
-                            <p class="text">查看Squid运行状态</p>
+                            <p class="text">查看Squid運行狀態</p>
                             <pre>systemctl status squid</pre>
                             <img src="static/img/project_proxy/p2.png" class="img-responsive img-rounded">
                             <br/>
 
                             <br/>
-                            <p class="text">使用vim打开Squid配置文件</p>
+                            <p class="text">使用vim打開Squid配置文件</p>
                             <pre>sudo vi /etc/squid/squid.conf</pre>
                             <br/>
 
                             <br/>
-                            <p class="text">默认情况下，Squid被配置成在服务器所有网络接口上监听端口3128</p>
+                            <p class="text">默認情況下，Squid被配置成在服務器所有網絡接口上監聽端口3128</p>
                             <img src="static/img/project_proxy/p3.png" class="img-responsive img-rounded">
                             <br/>
 
                             <br/>
-                            <p class="text">将下面这栏改为“http_access allow all”</p>
+                            <p class="text">將下面這欄改為“http_access allow all”</p>
                             <img src="static/img/project_proxy/p4.png" class="img-responsive img-rounded">
                             <br/>
 
                             <br/>
-                            <p class="text">在下面这个地方添加你的主机IP，以允许该IP连接</p>
+                            <p class="text">在下面這個地方添加你的主機IP，以允許該IP連接</p>
                             <img src="static/img/project_proxy/p5.png" class="img-responsive img-rounded">
                             <br/>
 
                             <br/>
-                            <p class="text">保存squid.conf文件并退出</p>
+                            <p class="text">保存squid.conf文件並退出</p>
                             <br/>
 
                             <br/>
-                            <p class="text">重启Squid服务</p>
+                            <p class="text">重啟Squid服務</p>
                             <pre>systemctl restart squid</pre>
                             <br/>
 
                             <br/>
-                            <p class="text">最后一步非常重要，就是打开服务器的端口</p>
+                            <p class="text">最後一步非常重要，就是打開服務器的端口</p>
                             <pre>sudo firewall-cmd --permanent --add-port=3128/tcp</pre>
                             <pre>firewall-cmd --reload</pre>
                             <br/>
@@ -109,7 +108,7 @@
                             <br/>
                             <h3>END</h3>
                             <br/>
-                            <p class="text">参考资料：</p>
+                            <p class="text">參考資料：</p>
                             <p class="text reference"><a href="https://cloud.tencent.com/developer/article/1626753">https://cloud.tencent.com/developer/article/1626753</a></p>
                             <p class="text reference"><a href="https://phoenixnap.com/kb/install-squid-proxy-server-centos">https://phoenixnap.com/kb/install-squid-proxy-server-centos</a></p>
                             <br/>

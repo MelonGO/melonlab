@@ -19,7 +19,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-                <span class="sr-only">切换导航</span>
+                <span class="sr-only">切换導航</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
@@ -27,9 +27,8 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">目录</a></li>
-                <li><a href="">讨论区</a></li>
-                <li><a href="">联系方式</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -39,22 +38,14 @@
                 <div class="content-panel">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h2>数据分析</h2>
+                            <h2>數據分析</h2>
                         </div>
                     </div>
 
                     <div class="row">
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>总共 <strong>367</strong> 间店铺</h3>
-                        </div>
-                        <br/>
-                    </div>
-
-                    <div class="row">
-                        <br/>
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>合计 <strong>23232</strong> 条评论</h3>
+                            <h3>總共 <strong>367</strong> 間店鋪</h3>
                         </div>
                         <br/>
                     </div>
@@ -62,7 +53,15 @@
                     <div class="row">
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>评论数分布：</h3>
+                            <h3>合計 <strong>23232</strong> 條評論</h3>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>評論數分布：</h3>
                             {% include 'weddingChart/pie_base.html' %}
                         </div>
                         <br/>
@@ -71,7 +70,7 @@
                     <div class="row">
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>评论数前十：</h3>
+                            <h3>評論數前十：</h3>
                             {% include 'weddingChart/rankBar.html' %}
                         </div>
                         <br/>
@@ -80,7 +79,7 @@
                     <div class="row">
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>评论词云：</h3>
+                            <h3>評論詞雲：</h3>
                             {% include 'weddingChart/wordcloud.html' %}
                         </div>
                         <br/>

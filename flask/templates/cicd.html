@@ -17,7 +17,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-                <span class="sr-only">切换导航</span>
+                <span class="sr-only">切換導航</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
@@ -25,9 +25,8 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">目录</a></li>
-                <li><a href="">讨论区</a></li>
-                <li><a href="">联系方式</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -37,14 +36,14 @@
                 <div class="content-panel">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h3>Flask + Mongodb + Nginx + Docker + Centos + GitHub搭建CI/CD环境</h3>
+                            <h3>Flask + Mongodb + Nginx + Docker + Centos + GitHub搭建CI/CD環境</h3>
                         </div>
                     </div>
                     <br/>
 
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <p class="text">新建一个项目，项目结构如下</p>
+                            <p class="text">新建一個項目，項目結構如下</p>
                             <pre>.
 ├── compose.yaml
 ├── flask
@@ -63,7 +62,7 @@
 
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            <p class="text"><code>compose.yaml</code>是docker compose配置文件，由三个容器组成：backend，mongo和web</p>
+                            <p class="text"><code>compose.yaml</code>是docker compose配置文件，由三個容器組成：backend，mongo和web</p>
                             <pre>services:
   web:
     image: nginx
@@ -101,7 +100,7 @@
                             <br/>
 
                             <br/>
-                            <p class="text">backend镜像的<code>Dockerfile</code></p>
+                            <p class="text">backend鏡像的<code>Dockerfile</code></p>
                             <pre># syntax=docker/dockerfile:1.4
 FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
 
@@ -134,14 +133,14 @@ CMD ["python3", "/src/server.py"]
                             <br/>
 
                             <br/>
-                            <p class="text"><code>requirements.txt</code>是Python的依赖库，根据项目需求增加/删减</p>
+                            <p class="text"><code>requirements.txt</code>是Python的依賴庫，根據項目需求新增/删减</p>
                             <pre>Flask==2.1.3
 requests==2.28.1
 pymongo==4.2.0</pre>
                             <br/>
 
                             <br/>
-                            <p class="text"><code>server.py</code>是整个web应用的入口，负责各种routing以及数据库的连接</p>
+                            <p class="text"><code>server.py</code>是整個web應用的入口，負責各種routing以及數據庫的連接</p>
                             <pre>from flask import Flask
 from flask import render_template
 from pymongo import MongoClient
@@ -161,16 +160,16 @@ if __name__ == "__main__":
                             <br/>
 
                             <br/>
-                            <p class="text"><code>templates</code>是Flask框架默认HTML模板目录</p>
+                            <p class="text"><code>templates</code>是Flask框架默認HTML模板目錄</p>
                             <br/>
 
                             <br/>
-                            <p class="text"><code>static</code>是Flask框架默认静态资源(css/img)目录</p>
+                            <p class="text"><code>static</code>是Flask框架默認靜態資源（css/img）目錄</p>
                             <br/>
 
                             <br/>
-                            <p class="text"><code>nginx/nginx.conf</code>是Nginx的配置文件，使用挂载映射到nginx容器</p>
-                            <p class="text"><code>nginx/log</code>是Nginx的日志文件，使用挂载映射到nginx容器</p>
+                            <p class="text"><code>nginx/nginx.conf</code>是Nginx的配置文件，使用掛載映射到nginx容器</p>
+                            <p class="text"><code>nginx/log</code>是Nginx的日誌文件，使用掛載映射到nginx容器</p>
                             <pre>volumes:
       - ./nginx/nginx.conf:/tmp/nginx.conf
       - ./nginx/log:/var/log/nginx</pre>
@@ -185,7 +184,7 @@ if __name__ == "__main__":
                             <br/>
 
                             <br/>
-                            <p class="text"><code>mongodb</code>是mongodb的数据存储目录，使用挂载映射到mongo容器</p>
+                            <p class="text"><code>mongodb</code>是mongodb的數據存儲目錄，使用掛載映射到mongo容器</p>
                             <pre>volumes:
       - ./mongodb:/data/db</pre>
                             <br/>
@@ -196,16 +195,16 @@ if __name__ == "__main__":
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <br/>
-                            <p class="text">在本地安装好docker，使用终端进入项目根目录，输入以下命令</p>
+                            <p class="text">在本地安裝好docker，使用終端進入項目根目錄，輸入以下命令</p>
                             <pre>docker compose up -d</pre>
                             <img src="static/img/project_cicd/p1.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">在浏览器输入<code>localhost</code>，将显示<code>index.html</code>页面</p>
+                            <p class="text">在瀏覽器輸入<code>localhost</code>，將顯示<code>index.html</code>頁面</p>
                             <br/>
-                            <p class="text">使用<code>docker ps</code>查看容器运行状态</p>
+                            <p class="text">使用<code>docker ps</code>查看容器運行狀態</p>
                             <img src="static/img/project_cicd/p2.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">使用<code>docker compose down</code>移除所有容器和Network（注意：需要手动删除backend容器的Image，以便在下次重构时令flask目录下更改过的内容复制到backend镜像中）</p>
+                            <p class="text">使用<code>docker compose down</code>移除所有容器和Network（注意：需要手動删除backend容器的Image，以便在下次重構時令flask目錄下更改過的內容複製到backend鏡像中）</p>
                             <img src="static/img/project_cicd/p3.png" class="img-responsive img-rounded">
                             <br/>
                         </div>
@@ -215,26 +214,26 @@ if __name__ == "__main__":
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <br/>
-                            <p class="text">下一步，将整个项目上传到github</p>
+                            <p class="text">下一步，將整個項目上傳到github</p>
                             <br/>
-                            <p class="text">Github项目下Settings -> Secrets -> Actions -> New repository secret</p>
-                            <p class="text">新建一个secret，名字为“DOCKER_HUB_USERNAME”，值为你的Docker Hub ID</p>
+                            <p class="text">Github項目下Settings -> Secrets -> Actions -> New repository secret</p>
+                            <p class="text">新建一個secret，名字為“DOCKER_HUB_USERNAME”，值為你的Docker Hub ID</p>
                             <img src="static/img/project_cicd/p4.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">登录Docker Hub，选择Setting -> Security -> New Access Tonken</p>
-                            <p class="text">新建一个Personal Access Token(PAT)</p>
+                            <p class="text">登入Docker Hub，選擇Setting -> Security -> New Access Tonken</p>
+                            <p class="text">新建一個Personal Access Token(PAT)</p>
                             <img src="static/img/project_cicd/p5.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">将该Token作为第二个secret加到Github项目中</p>
+                            <p class="text">將該Token作為第二個secret加到Github項目中</p>
                             <img src="static/img/project_cicd/p6.png" class="img-responsive img-rounded">
                             <br/>
                             <br/>
                             <p class="text">配置GitHub Actions工作流</p>
-                            <p class="text">选择Github项目下的Actions -> New workflow -> set up a workflow yourself</p>
+                            <p class="text">選擇Github項目下的Actions -> New workflow -> set up a workflow yourself</p>
                             <p class="text">新建main.yml</p>
                             <img src="static/img/project_cicd/p8.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">它的作用，是在git push的时候，使用flask目录下的Dockerfile构建backend镜像，并上传到Docker Hub的Repository</p>
+                            <p class="text">它的作用，是在git push的時候，使用flask目錄下的Dockerfile構建backend鏡像，並上傳到Docker Hub的Repository</p>
                         </div>
                     </div>
                     <br/>
@@ -242,11 +241,11 @@ if __name__ == "__main__":
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <br/>
-                            <p class="text">下一步，在Vultr上新建一个CentOS 7服务器，并安装好docker（请参考<a href="/vpn">这里</a>）</p>
+                            <p class="text">下一步，在Vultr上新建一個CentOS 7服務器，並安裝好docker（請參考<a href="/vpn">這裡</a>）</p>
                             <br/>
-                            <p class="text">使用“git clone”命令把项目下载到服务器上</p>
+                            <p class="text">使用“git clone”命令把項目下載到服務器上</p>
                             <br/>
-                            <p class="text">因为要从Docker Hub下载backend镜像，所以compose.yaml文件需要修改一下</p>
+                            <p class="text">因為要從Docker Hub下載backend鏡像，所以compose.yaml需要修改一下</p>
                             <pre>backend:
     image: melonlove/melonlab
     # flask requires SIGINT to stop gracefully
@@ -257,10 +256,10 @@ if __name__ == "__main__":
     depends_on:
       -  mongo</pre>
                             <br/>
-                            <p class="text">在服务器上使用“docker compose up -d”构建并启动项目</p>
+                            <p class="text">在服務器上使用“docker compose up -d”構建並啟動項目</p>
                             <img src="static/img/project_cicd/p7.png" class="img-responsive img-rounded">
                             <br/>
-                            <p class="text">打开浏览器，输入服务器IP，查看网站是否能够正常访问</p>
+                            <p class="text">打開瀏覽器，輸入服務器IP，查看網站是否能够正常訪問</p>
                             <br/>
                         </div>
                     </div>
@@ -269,10 +268,10 @@ if __name__ == "__main__":
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <br/>
-                            <p class="text">最后总结一下整个CI/CD的流程：</p>
-                            <p class="text">1.项目发生修改，使用<code>git push</code>上传到github</p>
-                            <p class="text">2.Github Actions自动构建backend镜像，上传到Docker Hub</p>
-                            <p class="text">3.登录服务器，使用docker compose相关命令重新构建和启动项目</p>
+                            <p class="text">最後總結一下整個CI/CD的流程：</p>
+                            <p class="text">1.項目發生修改，使用<code>git push</code>上傳到github</p>
+                            <p class="text">2.Github Actions自動構建backend鏡像，上傳到Docker Hub</p>
+                            <p class="text">3.登入服務器，使用docker compose相關命令重新構建和啟動項目</p>
                             <br/>
                         </div>
                     </div>
@@ -283,7 +282,7 @@ if __name__ == "__main__":
                             <br/>
                             <h3>END</h3>
                             <br/>
-                            <p class="text">参考资料：</p>
+                            <p class="text">參考資料：</p>
                             <p class="text reference"><a href="https://github.com/docker/awesome-compose">https://github.com/docker/awesome-compose</a></p>
                             <p class="text reference"><a href="https://docs.docker.com/language/python/configure-ci-cd/">https://docs.docker.com/language/python/configure-ci-cd/</a></p>
                             <p class="text reference"><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-flask-with-mongodb-and-docker">https://www.digitalocean.com/community/tutorials/how-to-set-up-flask-with-mongodb-and-docker</a></p>
