@@ -45,15 +45,222 @@
                         <br/>
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <p class="text">Go語言，作為一門開源的編譯型的靜態語言，具有簡單易學、開發效率高、執行性能好、天生支持並發等優點。雲原生應用中的Docker和Kubernetes都是使用Go語言進行開發</p>
-                            <p class="text">初識Golang，決定用它製作一個日常工作中經常要用到的工具：Ping Tool</p>
-                            <p class="text"></p>
-                            <p class="text"></p>
-                            <p class="text"></p>
                         </div>
                         <br/>
                     </div>
 
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">初識Golang，現在用它製作一個日常工作中經常要用到的工具：Ping Tool，項目結構如下</p>
+                            <img src="static/img/project_pingtool/p0.png" class="img-responsive img-rounded">
+                            <br>
+                            <p class="text">引入本項目要用到的兩個Github開源工具：go-ping 和 Excelize，以及其他要用到的庫</p>
+                            <pre>package main
 
+import (
+    "fmt" //輸入和輸出
+    "bufio" //讀取文本文件
+    "os" //os標準庫
+    "log" //日誌輸出
+    "time" //時間標準庫
+    "strings" //字符串操作
+    "strconv" //字符串類型轉換
+    
+    "github.com/xuri/excelize/v2" //讀寫Excel
+    "github.com/go-ping/ping" //go-ping module
+)</pre>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">下面按照工具的運行流程分步進行解析</p>
+                            <p class="text">首先，打開“Host.xlsx”，輸入要ping的hostname</p>
+                            <img src="static/img/project_pingtool/p1.png" class="img-responsive img-rounded">
+                            <br>
+                            <p class="text">讀取“Host.xlsx”文件的“Sheet1”，用到了方法<code>pingBySheet</code></p>
+                            <pre>func pingBySheet(excel_name string, sheet_name string, result chan string) {
+    f, err := excelize.OpenFile(excel_name) //打開Excel文件
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    defer func() {
+        // Close the spreadsheet.
+        if err := f.Close(); err != nil {
+            fmt.Println(err)
+        }
+    }()
+
+    rows, err := f.GetRows(sheet_name) //根據表名獲取全部行內容
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    length := len(rows)
+    ping_total += length
+    
+    for i:=1; i <= length; i+=1 {
+        tmp := "A" + strconv.Itoa(i)
+        cell, err := f.GetCellValue(sheet_name, tmp) //獲取單元格內容，即hostname
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        go getPingStat(cell, result) //使用goroutines執行getPingStat方法
+    }
+
+}</pre>
+                        <br>
+                        <p class="text">注意<code>go getPingStat(cell, result)</code>用到了Go語言的goroutines並發機制，多個線程使用channel進行通訊，先看<code>getPingStat</code>方法</p>
+                        </div>
+                        <pre>func getPingStat(host_name string, c chan string) {
+    var text string
+    pinger, err := ping.NewPinger(host_name) //新建一個pinger
+    if err != nil {
+        // fmt.Println("ERROR:", err)
+        text = host_name + "@ERROR:" + err.Error() + "\n" //輸出ping error的格式為hostname@ERROR...
+        c <- text //將ping result返回到channel
+        return
+    }
+
+    //設置pinger的屬性
+    pinger.Count = 5
+    pinger.SetPrivileged(true)
+    pinger.Timeout = time.Second*5
+    err = pinger.Run()
+    if err != nil {
+        fmt.Println("Failed to ping target host:", err)
+    }
+    pinger.Stop()
+    stats := pinger.Statistics()
+
+    //輸出ping result的格式為hostname@XXX packets transmitted, XXX packets received, XXX% packet loss, IP:XXX.XXX.XXX.XXX
+    text = stats.Addr + "@" +strconv.Itoa(stats.PacketsSent) + " packets transmitted, " + 
+                strconv.Itoa(stats.PacketsRecv) + " packets received, " + 
+                strconv.FormatFloat(stats.PacketLoss, 'g', 3, 64) + "% packet loss, IP:" + 
+                pinger.IPAddr().String() + "\n"
+
+    c <- text //將ping result返回到channel
+}</pre>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">得到ping的result後，下一步就是将其寫入“pingStat.txt”，具体如下</p>
+                            <pre>f_txt, err := os.OpenFile(`pingStat.txt`, os.O_WRONLY|os.O_CREATE, 0644) //打开文件
+    if err != nil {
+        panic(err)
+    }
+    defer f_txt.Close()
+
+    var i = 1
+    for s := range result { //遍历result
+        // println(s)
+        if _, err = f_txt.WriteString(s); err != nil {
+            panic(err)
+        }
+
+        if i >= ping_total {
+            close(result)
+        }
+        i++
+    }</pre>
+                            <p class="text">這裡我們知道有多少個hostname需要ping，所以設置一個全局變量<code>ping_total</code>進行記錄，令goroutines知道什麼時候結束</p>
+                            <br>
+                            <p class="text">輸出到"pingStat.txt"的ping result</p>
+                            <img src="static/img/project_pingtool/p2.png" class="img-responsive img-rounded">
+                            <br>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">最後，將txt中的ping result寫入Excel文件，需要用到<code>readPingStat</code>方法</p>
+                            <pre>func readPingStat(ping_file string)(map[string]string) {
+
+    var map_stat = make(map[string]string)
+
+    f, err := os.Open(ping_file) //打開txt文件
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer f.Close()
+
+    scanner := bufio.NewScanner(f) //按行讀取文件內容
+    for scanner.Scan() {
+        array := strings.Split(scanner.Text(), "@") //按@為分割符，形成一個map，key為hostname，value為ping結果
+        if len(array) == 2 {
+            map_stat[array[0]] = array[1]
+        }
+    }
+    if err := scanner.Err(); err != nil {
+        log.Fatal(err)
+    }
+
+    return map_stat //返回map
+}</pre>
+                            <br>
+                            <p class="text">以及<code>writePingStat</code>方法</p>
+                            <pre>func writePingStat(excel_name string, sheet_name string, map_stat map[string]string) {
+    f, err := excelize.OpenFile(excel_name) //打開Excel
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer func() {
+        // Close the spreadsheet.
+        if err := f.Close(); err != nil {
+            fmt.Println(err)
+        }
+    }()
+
+    // Get all the rows in the sheet.
+    rows, err := f.GetRows(sheet_name)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    length := len(rows)
+    for i:=1; i <= length; i+=1 {
+        tmp := "A" + strconv.Itoa(i)
+        cell, err := f.GetCellValue(sheet_name, tmp) //獲取單元格
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        val, ok := map_stat[cell]
+        if ok {
+            tmp := "B" + strconv.Itoa(i)
+            f.SetCellValue(sheet_name, tmp, val) //如果map裡面有這個hostname，將value（即ping result）寫入第二列
+        }
+    }
+
+    if err := f.SaveAs("Host.xlsx"); err != nil { //保存Excel
+        fmt.Println(err)
+    }
+}</pre>
+                            <p class="text">導出ping的結果到Excel文件</p>
+                            <img src="static/img/project_pingtool/p3.png" class="img-responsive img-rounded">
+                        </div>
+                        <br/>
+                    </div>
+
+                    <div class="row">
+                        <br/>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <p class="text">至此，我們已經完成ping tool的整個流程。可以感受到，Go語言是十分強大的，特別是天生支持並發這一點，還有較高的編譯和運行效率，可生成可執行文件等特性，十分值得學習。</p>
+                        </div>
+                        <br/>
+                    </div>
 
                 </div>
             </div>
