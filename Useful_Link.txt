@@ -1,0 +1,8 @@
+https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
+https://mindsers.blog/post/https-using-nginx-certbot-docker/
+
+https://awesome-go.com/authentication-and-oauth/
+
+https://www.sohamkamani.com/golang/session-cookie-authentication/
+
+github.com/wenlng/go-captcha
